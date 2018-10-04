@@ -16,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 require("./routes/user.routes")(app);
+require("./routes/post.routes")(app);
 
 const port = 8000 || proccess.env.PORT;
 app.listen(port, () => {
