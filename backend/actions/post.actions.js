@@ -21,12 +21,12 @@ exports.getOne = async (req, res) => {
 exports.post = async (req, res) => {
   // Create Post
   const exists = await Post.find(req.body);
-  if (exists) {
+  if (exists || exists.length === 0) {
     // Prevent duplicate posts
-    return res.status(400).send("Post already exists");
+    const newPost = await new Post(req.body).save();
+    return res.status(200).send(newPost);
   }
-  const newPost = await new Post(req.body).save();
-  res.status(200).send(newPost);
+  res.status(400).send("Post already exists");
 };
 
 exports.put = async (req, res) => {
