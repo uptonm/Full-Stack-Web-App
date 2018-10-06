@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Post } = require("../models/post");
 const User = require("../models/user");
+const { Comment } = require("../models/comment");
 
 exports.get = async (req, res) => {
   // Get all Posts
@@ -62,4 +63,15 @@ exports.getAuthor = async (req, res) => {
     return res.status(400).send("Author not found");
   }
   return res.status(400).send("Post not found");
+};
+
+exports.getComments = async (req, res) => {
+  const exists = await Post.find(req.params.id);
+  const comments = post.comments;
+  if (exists) {
+    return comments
+      ? res.status(200).send(comments)
+      : res.status(200).send("This post contains no comments");
+  }
+  return res.status(404).send("Post not found");
 };
