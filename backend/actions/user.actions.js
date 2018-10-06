@@ -4,7 +4,7 @@ const User = require("../models/user");
 exports.get = async (req, res) => {
   const exists = await User.find();
   if (exists.length !== 0) return res.status(200).send(exists);
-  return res.status(400).send("No Users Found");
+  return res.status(404).send("No Users Found");
 };
 
 exports.getOne = async (req, res) => {
@@ -12,7 +12,7 @@ exports.getOne = async (req, res) => {
   if (exists.length !== 0) {
     return res.status(200).send(exists);
   }
-  return res.status(400).send("User Not Found");
+  return res.status(404).send("User Not Found");
 };
 
 exports.post = async (req, res) => {
@@ -24,7 +24,7 @@ exports.delete = async (req, res) => {
   const userDelete = await User.findByIdAndRemove(
     { _id: req.params.id },
     (err, res) => {
-      if (err) return res.status(400).send(err);
+      if (err) return res.status(404).send('User not found');
     }
   );
   return res.status(200).send({ message: `User ${req.params.id} deleted` });
@@ -35,7 +35,7 @@ exports.put = async (req, res) => {
     { _id: req.params.id },
     req.body,
     (err, res) => {
-      if (err) return res.status(400).send(err);
+      if (err) return res.status(404).send('User not found');
     }
   );
   return res.status(200).send(userUpdate);

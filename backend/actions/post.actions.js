@@ -7,7 +7,7 @@ exports.get = async (req, res) => {
   // Get all Posts
   const exists = await Post.find();
   if (exists.length !== 0) return res.status(200).send(exists);
-  return res.status(400).send("No Posts Found");
+  return res.status(404).send("No Posts Found");
 };
 
 exports.getOne = async (req, res) => {
@@ -16,7 +16,7 @@ exports.getOne = async (req, res) => {
   if (exists.length !== 0) {
     return res.status(200).send(exists);
   }
-  return res.status(400).send("Post Not Found");
+  return res.status(404).send("Post Not Found");
 };
 
 exports.post = async (req, res) => {
@@ -36,7 +36,7 @@ exports.put = async (req, res) => {
     { _id: req.params.id },
     req.body,
     (err, res) => {
-      if (err) return res.status(400).send(err);
+      if (err) return res.status(404).send('Post not found');
     }
   );
   return res.status(200).send(postUpdate);
@@ -47,7 +47,7 @@ exports.delete = async (req, res) => {
   const postDelete = await Post.findByIdAndRemove(
     { _id: req.params.id },
     (err, res) => {
-      if (err) return res.status(400).send(err);
+      if (err) return res.status(404).send(err);
     }
   );
   return res.status(200).send({ message: `Post ${req.params.id} deleted` });
@@ -60,9 +60,9 @@ exports.getAuthor = async (req, res) => {
     if (author) {
       return res.status(200).send(author);
     }
-    return res.status(400).send("Author not found");
+    return res.status(404).send("Author not found");
   }
-  return res.status(400).send("Post not found");
+  return res.status(404).send("Post not found");
 };
 
 exports.getComments = async (req, res) => {
@@ -71,7 +71,7 @@ exports.getComments = async (req, res) => {
   if (exists) {
     return comments
       ? res.status(200).send(comments)
-      : res.status(200).send("This post contains no comments");
+      : res.status(404).send("This post contains no comments");
   }
   return res.status(404).send("Post not found");
 };
