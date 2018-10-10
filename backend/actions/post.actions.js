@@ -21,10 +21,13 @@ exports.getOne = async (req, res) => {
 
 exports.post = async (req, res) => {
   // Create Post
-  const exists = await Post.find(req.body);
-  if (exists || exists.length === 0) {
+  const exists = await Post.findOne({ title: req.body.title });
+  if (!exists) {
     // Prevent duplicate posts
     const newPost = await new Post(req.body).save();
+    const update = await User.findByIdAndUpdate(req.body.author, {
+      $push: { posts: newPost._id }
+    });
     return res.status(200).send(newPost);
   }
   res.status(400).send({ message: "Post already exists" });
@@ -44,13 +47,15 @@ exports.put = async (req, res) => {
 
 exports.delete = async (req, res) => {
   // Delete Post
-  const postDelete = await Post.findByIdAndRemove(
-    { _id: req.params.id },
-    (err, res) => {
-      if (err) return res.status(404).send(err);
-    }
-  );
-  return res.status(200).send({ message: `Post ${req.params.id} deleted` });
+  const exists = await Post.findById(req.params.id);
+  if (exists) {
+    const rmPost = await Post.findByIdAndRemove(req.params.id);
+    const rmFromUser = await User.findByIdAndUpdate(rmPost.author, {
+      $pull: { posts: { $in: req.params.id } }
+    });
+    return res.status(200).send({ message: `Post ${req.params.id} deleted` });
+  }
+  return res.status(404).send({ message: `Post ${req.params.id} not found` });
 };
 
 exports.getAuthor = async (req, res) => {

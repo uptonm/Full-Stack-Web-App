@@ -1,12 +1,16 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const { postSchema } = require("./post");
 
 const userSchema = new Schema({
   first: String,
   last: String,
   email: String,
-  posts: [postSchema]
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "posts"
+    }
+  ]
 });
 
 // Virtual Field, does not persist to database, performs function to calculate locally
