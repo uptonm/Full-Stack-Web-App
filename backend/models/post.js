@@ -9,7 +9,12 @@ const postSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "users"
   },
-  comments: [commentSchema]
+  comments: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "comments"
+    }
+  ]
 });
 
 const Post = mongoose.model("posts", postSchema);
