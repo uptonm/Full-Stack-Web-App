@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-const USER = require('../keys').USER;
-const PASS = require('../keys').PASS;
+const USER = require('../keys').USER || process.env.USER;
+const PASS = require('../keys').PASS || process.env.PASSWORD;
 
 mongoose.Promise = global.Promise;
 
