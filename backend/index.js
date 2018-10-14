@@ -2,21 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-let USER, PASS;
-if (process.env.NODE_ENV !== 'production') {
-  const keys = require("./keys");
-  USER = keys.USER;
-  PASS = keys.PASS;
-} else {
-  USER = process.env.USER;
-  PASS = process.env.PASS;
-}
+const USER = process.env.USER || require('./keys').USER;
+const PASS = process.env.PASS || require('./keys').PASS;
+
 
 // Prevent false depreciation warning on collection.findOneAndUpdate command
 mongoose.set("useFindAndModify", false);
 
 mongoose.connect(
-  `mongodb://${process.env.USER || USER}:${process.env.PASS || PASS}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
+  `mongodb://${USER}:${PASS}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
   { useNewUrlParser: true }
 );
 
