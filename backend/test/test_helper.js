@@ -1,10 +1,13 @@
 const mongoose = require("mongoose");
 
+const USER = require('../keys').USER;
+const PASS = require('../keys').PASS;
+
 mongoose.Promise = global.Promise;
 
 before(done => {
   mongoose.connect(
-    "mongodb://localhost:27017/users_test",
+    `mongodb://${USER}:${PASS}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
     { useNewUrlParser: true }
   );
   mongoose.connection
@@ -17,6 +20,7 @@ before(done => {
   mongoose.set("useFindAndModify", false);
 });
 
+// Drop all documents from collections before beginning testing
 beforeEach = async () => {
   const { users, posts, comments } = mongoose.connection.collections;
   if (users) {

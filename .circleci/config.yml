@@ -19,6 +19,6 @@ jobs:
     steps:
       - checkout
       - run: cd backend && npm install
-      - run: cd backend && npm run dev
+      - run: cd backend && npm run test
 
 

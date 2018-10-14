@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
-const USER = process.env.USER;
-const PASS = process.env.PASS;
+const USER = require('./keys').USER;
+const PASS = require('./keys').PASS;
 
 
 // Prevent false depreciation warning on collection.findOneAndUpdate command
