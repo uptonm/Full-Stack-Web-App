@@ -1,13 +1,11 @@
 const mongoose = require("mongoose");
-
-const USER = require('../keys').USER || process.env.USER;
-const PASS = require('../keys').PASS || process.env.PASSWORD;
+require('dotenv').config();
 
 mongoose.Promise = global.Promise;
 
 before(done => {
   mongoose.connect(
-    `mongodb://${USER}:${PASS}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
+    `mongodb://${process.env.USER}:${process.env.PASSWORD}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
     { useNewUrlParser: true }
   );
   mongoose.connection
