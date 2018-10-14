@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const keys = require("./keys");
 
 // Prevent false depreciation warning on collection.findOneAndUpdate command
 mongoose.set("useFindAndModify", false);
 
 mongoose.connect(
-  "mongodb://localhost:27017/users_test",
+  `mongodb://${process.env.USER || keys.USER}:${process.env.PASS || keys.PASS}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
   { useNewUrlParser: true }
 );
 
