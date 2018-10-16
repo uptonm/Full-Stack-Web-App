@@ -7,7 +7,7 @@
     "start": "node .",
     "dev": "nodemon .",
     "prod-test": "mocha",
-    "test": "nodemon --exec \"mocha test --reporter mocha-junit-reporter\""
+    "test": "node --exec \"mocha test --reporter mocha-junit-reporter\""
   },
   "author": "",
   "license": "ISC",
