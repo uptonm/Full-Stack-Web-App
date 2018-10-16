@@ -7,7 +7,7 @@
     "start": "node .",
     "dev": "nodemon .",
     "prod-test": "mocha",
-    "test": "jest --detectOpenHandles"
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
