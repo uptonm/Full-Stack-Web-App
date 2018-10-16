@@ -1,6 +1,7 @@
 const assert = require("assert");
 const axios = require("axios");
 const User = require("../models/user");
+require('../config/setup')
 
 let joe;
 

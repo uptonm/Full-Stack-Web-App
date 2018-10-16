@@ -3,11 +3,12 @@ require('dotenv').config();
 
 mongoose.Promise = global.Promise;
 
-before(done => {
+beforeAll(done => {
   mongoose.connect(
     `mongodb://${process.env.USER}:${process.env.PASSWORD}@ds051833.mlab.com:51833/uptonm-fullstackblog`,
     { useNewUrlParser: true }
   );
+  console.log('ran');
   mongoose.connection
     .once("open", () => {
       done();
@@ -19,7 +20,7 @@ before(done => {
 });
 
 // Drop all documents from collections before beginning testing
-beforeEach = async () => {
+beforeAll = async () => {
   const { users, posts, comments } = mongoose.connection.collections;
   if (users) {
     const userDrop = await users.drop();

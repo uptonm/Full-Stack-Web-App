@@ -19,15 +19,6 @@ jobs:
     steps:
       - checkout
       - run: cd backend && npm install
-      - run: cd backend && mkdir ~/junit
-      - run:
-          command: cd backend && mocha test --reporter mocha-junit-reporter
-          environment:
-            MOCHA_FILE: test-results.xml
-          when: always
-      - store_test_results:
-          path: ~/backend
-      - store_artifacts:
-          path: ~/backend 
+      - run: cd backend && npm test
 
 
