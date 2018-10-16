@@ -21,13 +21,13 @@ jobs:
       - run: cd backend && npm install
       - run: cd backend && mkdir ~/junit
       - run:
-        command: cd backend && mocha test --reporter mocha-junit-reporter
-        enviornment: 
-          MOCHA_FILE: junit/test-results.xml
-        when: always
+          command: cd backend && mocha test --reporter mocha-junit-reporter
+          environment:
+            MOCHA_FILE: junit/test-results.xml
+          when: always
       - store_test_results:
-        path: ~/backend/junit
+          path: ~/backend/junit
       - store_artifacts:
-        path: ~/backend/junit
+          path: ~/backend/junit 
 
 
